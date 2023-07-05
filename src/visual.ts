@@ -55,18 +55,24 @@ export class Visual implements IVisual {
         this.kpiBox.attr('width', options.viewport.width).attr('height', options.viewport.height).attr('fill','aliceblue');
         this.labelBox.attr('width', options.viewport.width).attr('height',20).attr('fill','pink');
         
-        this.labelText.attr('text-anchor','start')
+        this.labelText.attr('text-anchor','middle')
         .attr('dominant-baseline','middle')
+        .attr('x', width/2)
         .attr('y', 10)
         .attr('class','kpiLabel')
-        .text(colName)
+        .text('sum of ' + colName )
+
+        var sum = options.dataViews[0].categorical.categories[0].values.reduce((cur: number, item: number, i) => {
+            cur = cur + item
+            return cur;
+        }, 0).toString();
 
         this.kpiText.attr('text-anchor','middle')
                         .attr('dominant-baseline','middle')
-                        .attr('y', height/2)
+                        .attr('y', ((height-20)/2) + 20)
                         .attr('x', width/2)
                         .attr('class','kpiNumber')
-                        .text(options.dataViews[0].single.value.toString());
+                        .text(sum);
 
         
     }
