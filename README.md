@@ -7,7 +7,7 @@
 
 
 2023.07.05 (v1.3):
-* [x] kpi box finished
+* [x] kpi box: sum of numbers
 
 2023.07.05 (v1.2):
 * [x] getting started with d3js
