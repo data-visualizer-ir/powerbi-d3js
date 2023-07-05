@@ -85,11 +85,18 @@ export class Visual implements IVisual {
         console.log('Visual update', options);
         if (this.textNode) {
 
-            // فقط ستون اول کار مکیند
-            var colName = options.dataViews[0]['metadata']['columns'][0]['displayName']
-            var values = options.dataViews[0]['categorical']['categories'][0]['values']
-            this.textNode.textContent = JSON.stringify({colName, values}).toString();
+            // 0
             // this.textNode.textContent = (this.updateCount++).toString();
+
+            // 1 فقط ستون اول کار مکیند 
+            // var values = options.dataViews[0]['categorical']['categories'][0]['values']
+            // this.textNode.textContent = JSON.stringify({colName, values}).toString();
+
+            // 2
+            var colName = options.dataViews[0]['metadata']['columns'][0]['displayName']
+            this.textNode.textContent = colName.toString()
+
+
         }
     }
 
