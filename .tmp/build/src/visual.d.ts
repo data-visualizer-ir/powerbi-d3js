@@ -7,6 +7,10 @@ export declare class Visual implements IVisual {
     private formattingSettings;
     private formattingSettingsService;
     private svg;
+    private kpiBox;
+    private labelBox;
+    private kpiText;
+    private labelText;
     constructor(options: VisualConstructorOptions);
     update(options: VisualUpdateOptions): void;
 }

@@ -20,6 +20,10 @@ export class Visual implements IVisual {
     private formattingSettings: VisualFormattingSettingsModel;
     private formattingSettingsService: FormattingSettingsService;
     private svg: Selection<SVGElement>;
+    private kpiBox: Selection<SVGElement>;
+    private labelBox: Selection<SVGElement>;
+    private kpiText: Selection<SVGElement>;
+    private labelText: Selection<SVGElement>;
 
 
     // 
@@ -28,7 +32,10 @@ export class Visual implements IVisual {
 
         // 
         this.svg = d3.select(options.element).append('svg').classed('kpiBox',true);
-
+        this.kpiBox = this.svg.append('rect');
+        this.labelBox = this.svg.append('rect');
+        this.kpiText = this.svg.append('text');
+        this.labelText = this.svg.append('text');
 
     }
 
@@ -42,6 +49,25 @@ export class Visual implements IVisual {
         this.svg
         .attr('width', width)
         .attr('height', height);
+
+        var colName = options.dataViews[0].metadata.columns[0].displayName
+        
+        this.kpiBox.attr('width', options.viewport.width).attr('height', options.viewport.height).attr('fill','aliceblue');
+        this.labelBox.attr('width', options.viewport.width).attr('height',20).attr('fill','pink');
+        
+        this.labelText.attr('text-anchor','start')
+        .attr('dominant-baseline','middle')
+        .attr('y', 10)
+        .attr('class','kpiLabel')
+        .text(colName)
+
+        this.kpiText.attr('text-anchor','middle')
+                        .attr('dominant-baseline','middle')
+                        .attr('y', height/2)
+                        .attr('x', width/2)
+                        .attr('class','kpiNumber')
+                        .text(options.dataViews[0].single.value.toString());
+
         
     }
 
