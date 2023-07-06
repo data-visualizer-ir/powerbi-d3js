@@ -6,7 +6,7 @@
 
 
 2023.07.06 (v1.6):
-* [ ] kpi box: kpi_title `text` from fields
+* [ ] kpi box: kpi_title, rename column title
 
 2023.07.06 (v1.5):
 * [x] kpi box: `color`, `font-size` style from fields
