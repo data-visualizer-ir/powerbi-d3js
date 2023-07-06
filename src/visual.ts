@@ -64,25 +64,37 @@ export class Visual implements IVisual {
         // ------------------------------------------------------
         // d3 
         // ------------------------------------------------------
+
+        //
         var {width, height} = options.viewport;
-        var dataView = options.dataViews[0]
-
-        // KPI Title
-        var kpi_title = dataView.metadata.columns[0].displayName // عنوان ستون
         
-        var categorical = dataView.categorical 
-        var kpi_val = categorical.categories[0].values[0].toString() // مقدار فیلد اول
-        // var kpi_unit = categorical.categories[1].values[0] // اگر دوتا ستون در یک فیلد بود
-        var kpi_unit = categorical.values[0].values[0] // مقدار فیلد دوم
-        
-        var kpi_val =  kpi_val + kpi_unit
- 
-
-
         //
         this.svg
         .attr('width', width)
         .attr('height', height);
+        
+        // 
+        var dataView = options.dataViews[0]
+
+
+        // KPI Title
+        var kpi_title = dataView.metadata.columns[0].displayName // عنوان ستون
+        
+        //
+        var categorical = dataView.categorical 
+        
+        // مقدار فیلد اول
+        var kpi_val = categorical.categories[0].values[0].toString() 
+        
+        // اگر دوتا ستون در یک فیلد بود
+        // var kpi_unit = categorical.categories[1].values[0] 
+        
+        // مقدار فیلد دوم
+        var kpi_unit = categorical.values[0].values[0] 
+        var kpi_val =  kpi_val + kpi_unit
+ 
+
+
 
         // 
         
@@ -124,7 +136,8 @@ export class Visual implements IVisual {
         .attr('x', width/2)
         .attr('y', labelBox_height/2)
         .style('font-size', labelText_fontsize)
-        .text('sum of ' + kpi_title )
+        .style('font-family', 'IRANSansWeb')
+        .text(kpi_title )
 
         // kpi box
         this.kpiBox.attr('width', options.viewport.width)
@@ -144,6 +157,9 @@ export class Visual implements IVisual {
         .attr('y', ((height-labelBox_height)/2) + labelBox_height)
         .attr('x', width/2)
         .style('font-size', kpiText_fontsize)
+        .attr('dir', 'rtl')
+        .style('direction', 'rtl')
+        .style('font-family', 'IRANSansWeb')
         .text(kpi_val )
 
         
