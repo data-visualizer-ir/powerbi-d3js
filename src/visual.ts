@@ -10,6 +10,10 @@ import IVisual = powerbi.extensibility.visual.IVisual;
 import { VisualFormattingSettingsModel } from "./settings";
 type Selection<T extends d3.BaseType> = d3.Selection<T, any, any, any>;
 
+import { textMeasurementService, interfaces } from "powerbi-visuals-utils-formattingutils";
+import TextProperties = interfaces.TextProperties;
+import { valueFormatter } from "powerbi-visuals-utils-formattingutils";
+
 
 // -----------------------------------------------------------------
 //
@@ -39,19 +43,39 @@ export class Visual implements IVisual {
 
     }
 
+    
+
 
     // method 1: update
     public update(options: VisualUpdateOptions) {
-        this.formattingSettings = this.formattingSettingsService.populateFormattingSettingsModel(VisualFormattingSettingsModel, options.dataViews);
 
+        //
+        this.formattingSettings = this.formattingSettingsService.populateFormattingSettingsModel(VisualFormattingSettingsModel, options.dataViews);
         var {width, height} = options.viewport;
 
+        var dataView = options.dataViews[0]
+
+        // KPI Title
+        var kpi_title = dataView.metadata.columns[0].displayName // عنوان ستون
+        
+        var categorical = dataView.categorical 
+        var kpi_val = categorical.categories[0].values[0].toString() // مقدار فیلد اول
+        // var kpi_unit = categorical.categories[1].values[0] // اگر دوتا ستون در یک فیلد بود
+        var kpi_unit = categorical.values[0].values[0] // مقدار فیلد دوم
+        
+        var kpi_val =  kpi_val + kpi_unit
+ 
+
+        //
         this.svg
         .attr('width', width)
         .attr('height', height);
 
-        var colName = options.dataViews[0].metadata.columns[0].displayName
+        // 
+        // metadata.columns[0] >> displayName, type, format, objects, roles
         
+
+        // 
         this.kpiBox.attr('width', options.viewport.width).attr('height', options.viewport.height).attr('fill','aliceblue');
         this.labelBox.attr('width', options.viewport.width).attr('height',20).attr('fill','pink');
         
@@ -60,19 +84,19 @@ export class Visual implements IVisual {
         .attr('x', width/2)
         .attr('y', 10)
         .attr('class','kpiLabel')
-        .text('sum of ' + colName )
+        .text('sum of ' + kpi_title )
 
-        var sum = options.dataViews[0].categorical.categories[0].values.reduce((cur: number, item: number, i) => {
-            cur = cur + item
-            return cur;
-        }, 0).toString();
+        // var sum = options.dataViews[0].categorical.categories[0].values.reduce((cur: number, item: number, i) => {
+        //     cur = cur + item
+        //     return cur;
+        // }, 0)
 
         this.kpiText.attr('text-anchor','middle')
                         .attr('dominant-baseline','middle')
                         .attr('y', ((height-20)/2) + 20)
                         .attr('x', width/2)
                         .attr('class','kpiNumber')
-                        .text(sum);
+                        .text(kpi_val );
 
         
     }
