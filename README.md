@@ -6,11 +6,11 @@
 
 
 
-* [ ] kpi box: get everything from fields
+* [ ] kpi box: kpi_title `text` from fields
 
 
 2023.07.06 (v1.5):
-* [ ] kpi box: style value from fields
+* [x] kpi box: `color`, `font-size` style from fields
 
 2023.07.06 (v1.4):
 * [x] kpi box: Toman - get value of second data role field
