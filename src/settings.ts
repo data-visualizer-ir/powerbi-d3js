@@ -5,24 +5,51 @@ import FormattingSettingsCard = formattingSettings.Card;
 import FormattingSettingsSlice = formattingSettings.Slice;
 import FormattingSettingsModel = formattingSettings.Model;
 
+
+// 
 export class CircleSettings extends FormattingSettingsCard{
+
+
+    // 
     public circleColor = new formattingSettings.ColorPicker({
         name: "circleColor",
-        displayName: "Color",
-        value: { value: "#ffffff" }
+        displayName: "رنگ",
+        value: { value: "#aaaaaa" }
     });
 
-    public circleThickness = new formattingSettings.NumUpDown({
-        name: "circleThickness",
-        displayName: "Thickness",
-        value: 2
+
+    // label Font-size
+    public labelFontsize = new formattingSettings.NumUpDown({
+        name: "labelFontsize",
+        displayName: "اندازه فونت لیبل",
+        value: 12
     });
 
+
+    // kpi Font-size
+    public kpiFontsize = new formattingSettings.NumUpDown({
+        name: "kpiFontsize",
+        displayName: "اندازه فونت لیبل",
+        value: 12
+    });
+
+
+    // 
     public name: string = "circle";
-    public displayName: string = "Circle";
-    public slices: FormattingSettingsSlice[] = [this.circleColor, this.circleThickness]
+    public displayName: string = "تنظیمات باکس شاخص";
+    
+    // 
+    public slices: FormattingSettingsSlice[] = [
+        this.circleColor, 
+        this.labelFontsize, 
+        this.kpiFontsize
+    ]
+
+
 }
 
+
+// 
 export class VisualSettings extends FormattingSettingsModel {
     public circle: CircleSettings = new CircleSettings();
     public cards: FormattingSettingsCard[] = [this.circle];

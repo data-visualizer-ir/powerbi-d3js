@@ -26,7 +26,12 @@
                         }
                     }
                 },
-                "circleThickness": {
+                "labelFontsize": {
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "kpiFontsize": {
                     "type": {
                         "numeric": true
                     }

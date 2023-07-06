@@ -62,17 +62,6 @@ export class Visual implements IVisual {
     public update(options: VisualUpdateOptions) {
 
         // ------------------------------------------------------
-        // styles
-        // ------------------------------------------------------
-        this.visualSettings = this.formattingSettingsService.populateFormattingSettingsModel(VisualSettings, options.dataViews);
-        this.visualSettings.circle.circleThickness.value = Math.max(0, this.visualSettings.circle.circleThickness.value);
-        this.visualSettings.circle.circleThickness.value = Math.min(100, this.visualSettings.circle.circleThickness.value);
-
-        var fill_color = this.visualSettings.circle.circleColor.value.value;
-        var stroke_width = this.visualSettings.circle.circleThickness.value
-
-
-        // ------------------------------------------------------
         // d3 
         // ------------------------------------------------------
         var {width, height} = options.viewport;
@@ -89,56 +78,73 @@ export class Visual implements IVisual {
         var kpi_val =  kpi_val + kpi_unit
  
 
+
         //
         this.svg
         .attr('width', width)
         .attr('height', height);
 
         // 
-        // metadata.columns[0] >> displayName, type, format, objects, roles
+        
+        // ------------------------------------------------------
+        // styles
+        // ------------------------------------------------------
+        this.visualSettings = this.formattingSettingsService.populateFormattingSettingsModel(VisualSettings, options.dataViews);
+        
+        // set limitation:  0 < circlethickness < 100
+        this.visualSettings.circle.labelFontsize.value = Math.max(0, this.visualSettings.circle.labelFontsize.value);
+        this.visualSettings.circle.labelFontsize.value = Math.min(100, this.visualSettings.circle.labelFontsize.value);
+
+        // get formating fields
+        var fields = this.visualSettings.circle
+        var fill_color = fields.circleColor.value.value;
+        var labelText_fontsize = fields.labelFontsize.value
+        var kpiText_fontsize = fields.kpiFontsize.value
         
 
+        // 
+        var labelBox_height = 50
+
         
-        //
+        // label box
         this.labelBox.attr('width', options.viewport.width)
-        .attr('height', 20)
+        .attr('height', labelBox_height)
         .attr('fill', fill_color)
         .attr('opacity', 1)
 
-        //
+        // cover box
         this.coverBox.attr('width', options.viewport.width)
-        .attr('height', 20)
-        .attr('fill', 'black')
+        .attr('height', labelBox_height)
+        .attr('fill', 'gray')
         .attr('opacity', .5)
         
-        // 
+        // label text
         this.labelText.attr('text-anchor','middle')
         .attr('dominant-baseline','middle')
         .attr('x', width/2)
-        .attr('y', 10)
-        .attr('class','kpiLabel')
-        .style('font-size', stroke_width)
+        .attr('y', labelBox_height/2)
+        .style('font-size', labelText_fontsize)
         .text('sum of ' + kpi_title )
 
-        // 
+        // kpi box
         this.kpiBox.attr('width', options.viewport.width)
         .attr('height', options.viewport.height)
         .attr('fill', fill_color)
-        .style('font-size', stroke_width)
         .attr('opacity', 1)
 
+        // kpi text value
         // var sum = options.dataViews[0].categorical.categories[0].values.reduce((cur: number, item: number, i) => {
         //     cur = cur + item
         //     return cur;
         // }, 0)
 
-        //
+        // kpi text
         this.kpiText.attr('text-anchor','middle')
-                        .attr('dominant-baseline','middle')
-                        .attr('y', ((height-20)/2) + 20)
-                        .attr('x', width/2)
-                        .attr('class','kpiNumber')
-                        .text(kpi_val );
+        .attr('dominant-baseline','middle')
+        .attr('y', ((height-labelBox_height)/2) + labelBox_height)
+        .attr('x', width/2)
+        .style('font-size', kpiText_fontsize)
+        .text(kpi_val )
 
         
     }
