@@ -1,6 +1,7 @@
 # powerbi-kpi (v1.6)
 2023.07.06
 
+![](./test-data/screenshot.png)
 
 ## in this version (v1.6)
 
