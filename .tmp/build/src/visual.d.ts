@@ -4,13 +4,15 @@ import VisualConstructorOptions = powerbi.extensibility.visual.VisualConstructor
 import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
 import IVisual = powerbi.extensibility.visual.IVisual;
 export declare class Visual implements IVisual {
-    private formattingSettings;
+    private visualSettings;
     private formattingSettingsService;
     private svg;
     private kpiBox;
     private labelBox;
+    private coverBox;
     private kpiText;
     private labelText;
     constructor(options: VisualConstructorOptions);
     update(options: VisualUpdateOptions): void;
+    getFormattingModel(): powerbi.visuals.FormattingModel;
 }

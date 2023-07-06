@@ -9,7 +9,7 @@ var circlecard9DEAB36F795D4460B10E343D7BE36FC2: IVisualPlugin = {
     name: 'circlecard9DEAB36F795D4460B10E343D7BE36FC2',
     displayName: 'circlecard',
     class: 'Visual',
-    apiVersion: '5.1.0',
+    apiVersion: '5.3.0',
     create: (options?: VisualConstructorOptions) => {
         if (Visual) {
             return new Visual(options);
