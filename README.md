@@ -1,13 +1,12 @@
-# powerbi-kpi (v1.5)
-2023.07.05
+# powerbi-kpi (v1.6)
+2023.07.06
 
 
-## in this version (v1.5)
+## in this version (v1.6)
 
 
-
+2023.07.06 (v1.6):
 * [ ] kpi box: kpi_title `text` from fields
-
 
 2023.07.06 (v1.5):
 * [x] kpi box: `color`, `font-size` style from fields
